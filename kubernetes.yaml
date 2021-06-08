@@ -26,29 +26,9 @@ kind: Service
 metadata:
   name: nginx-service
 spec:
+  type: NodePort
   selector:
     name: nginx-mysql
   ports:
   - port: 80
     targetPort: 80
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: nginx-expose
-  labels:
-      name: nginx-expose
-spec:
-  rules:
-  - host: service.darywinata.local
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: nginx-service
-            port: 
-             number: 80
